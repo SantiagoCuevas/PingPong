@@ -83,7 +83,7 @@ document.addEventListener("keydown", (e) => {
 // Left paddle
 ctx.font;
 ctx.beginPath();
-ctx.rect(50, window.innerHeight / 2.5, innerWidth / 60, innerHeight / 7);
+ctx.rect(50, leftPaddleYPos, innerWidth / 60, innerHeight / 7);
 ctx.fillStyle = "white";
 ctx.fill();
 ctx.closePath();
@@ -92,7 +92,7 @@ ctx.closePath();
 ctx.beginPath();
 ctx.rect(
   window.innerWidth - 76,
-  window.innerHeight / 2.5,
+  rightPaddleYPos,
   innerWidth / 60,
   innerHeight / 7
 );
@@ -100,15 +100,35 @@ ctx.fillStyle = "white";
 ctx.fill();
 ctx.closePath();
 
+const ballRadius = window.innerHeight / 100;
+let ballXPos = window.innerWidth / 2;
+const dx = 6;
+let ballYPos = window.innerHeight / 2;
+const dy = -3;
+
 // Ball
-ctx.beginPath();
-ctx.arc(
-  window.innerWidth / 2,
-  window.innerHeight / 2,
-  window.innerHeight / 100,
-  0,
-  Math.PI * 2
-);
-ctx.fillStyle = "white";
-ctx.fill();
-ctx.closePath();
+const drawBall = () => {
+  ctx.beginPath();
+  ctx.arc(ballXPos, ballYPos, ballRadius, 0, Math.PI * 2);
+  ctx.fillStyle = "white";
+  ctx.fill();
+  ctx.closePath();
+};
+
+const moveBall = () => {
+  ctx.clearRect(
+    ballXPos - ballRadius - 3,
+    ballYPos - ballRadius + 1,
+    ballRadius * 2 + 2,
+    ballRadius * 2 + 2
+  );
+  ballXPos += dx;
+  ballYPos += dy;
+  drawBall();
+};
+
+const startGame = () => {
+  const interval = setInterval(moveBall, 10);
+};
+
+startGame();
