@@ -13,8 +13,14 @@ if (!ctx) {
   throw new Error("Canvas ctx not found");
 }
 
+const paddleHeight = innerWidth / 60;
+const paddleWidth = innerHeight / 7;
+
 let leftPaddleYPos = window.innerHeight / 2.5;
 let rightPaddleYPos = window.innerHeight / 2.5;
+
+// Create function to draw/ create paddles and clean up code below DRY
+// const drawPaddle = (xPos, yPos) => {};
 
 const moveRightPaddle = (e: any) => {
   if (e.keyCode === 40) {
@@ -25,10 +31,10 @@ const moveRightPaddle = (e: any) => {
     ctx.rect(
       window.innerWidth - 76,
       rightPaddleYPos,
-      innerWidth / 60,
-      innerHeight / 7
+      paddleHeight,
+      paddleWidth
     );
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#36d800";
     ctx.fill();
     ctx.closePath();
   } else if (e.keyCode === 38) {
@@ -42,7 +48,7 @@ const moveRightPaddle = (e: any) => {
       innerWidth / 60,
       innerHeight / 7
     );
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#36d800";
     ctx.fill();
     ctx.closePath();
   }
@@ -56,7 +62,7 @@ const moveLeftPaddle = (e: any) => {
 
     ctx.beginPath();
     ctx.rect(50, leftPaddleYPos, innerWidth / 60, innerHeight / 7);
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#36d800";
     ctx.fill();
     ctx.closePath();
   } else if (e.keyCode === 87) {
@@ -65,12 +71,13 @@ const moveLeftPaddle = (e: any) => {
     ctx.clearRect(0, 0, 79, canvas.height);
     ctx.beginPath();
     ctx.rect(50, leftPaddleYPos, innerWidth / 60, innerHeight / 7);
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "#36d800";
     ctx.fill();
     ctx.closePath();
   }
 };
 
+// Add key down true and key up false logic to allow paddles to move at the same time
 document.addEventListener("keydown", (e) => {
   if (e.keyCode === 39 || 40) {
     moveRightPaddle(e);
@@ -84,7 +91,7 @@ document.addEventListener("keydown", (e) => {
 ctx.font;
 ctx.beginPath();
 ctx.rect(50, leftPaddleYPos, innerWidth / 60, innerHeight / 7);
-ctx.fillStyle = "white";
+ctx.fillStyle = "#36d800";
 ctx.fill();
 ctx.closePath();
 
@@ -96,11 +103,11 @@ ctx.rect(
   innerWidth / 60,
   innerHeight / 7
 );
-ctx.fillStyle = "white";
+ctx.fillStyle = "#36d800";
 ctx.fill();
 ctx.closePath();
 
-const ballRadius = window.innerHeight / 100;
+const ballRadius = window.innerHeight / 50;
 let ballXPos = window.innerWidth / 2;
 const dx = 6;
 let ballYPos = window.innerHeight / 2;
@@ -110,7 +117,7 @@ const dy = -3;
 const drawBall = () => {
   ctx.beginPath();
   ctx.arc(ballXPos, ballYPos, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "#36d800";
   ctx.fill();
   ctx.closePath();
 };
